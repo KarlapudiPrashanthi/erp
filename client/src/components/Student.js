@@ -7,10 +7,10 @@ import '../App.css';
 const Student = () => {
   // Sample student data
   const [attendance, setAttendance] = useState([
-    { id: 1, name: 'John Doe', isPresent: true },
-    { id: 2, name: 'Jane Smith', isPresent: false },
-    { id: 3, name: 'Alice Johnson', isPresent: true },
-    { id: 4, name: 'Bob Brown', isPresent: false },
+    { id: 1, name: 'prashanthi', isPresent: true },
+    { id: 2, name: 'Rashmitha', isPresent: false },
+    { id: 3, name: 'vidya', isPresent: true },
+    { id: 4, name: 'Deva', isPresent: false },
   ]);
 
   const handleToggle = (id) => {
