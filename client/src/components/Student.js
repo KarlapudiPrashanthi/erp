@@ -1,23 +1,35 @@
-// src/components/Student.js
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Grid, FormControlLabel, Switch, Paper } from '@mui/material';
 import '../App.css';
 
 const Student = () => {
-  // Sample student data
-  const [attendance, setAttendance] = useState([
-    { id: 1, name: 'prashanthi', isPresent: true },
-    { id: 2, name: 'Rashmitha', isPresent: false },
-    { id: 3, name: 'vidya', isPresent: true },
-    { id: 4, name: 'Deva', isPresent: false },
-  ]);
+  // Retrieve stored attendance data or initialize it
+  const initialAttendance = JSON.parse(localStorage.getItem('attendance')) || [
+    { id: 1, name: 'Prashanthi', presentDays: 5, totalDays: 10 },
+    { id: 2, name: 'Rashmitha', presentDays: 7, totalDays: 10 },
+    { id: 3, name: 'Vidya', presentDays: 9, totalDays: 10 },
+    { id: 4, name: 'Deva', presentDays: 6, totalDays: 10 },
+  ];
+
+  const [attendance, setAttendance] = useState(initialAttendance);
+
+  // Update localStorage whenever attendance changes
+  useEffect(() => {
+    localStorage.setItem('attendance', JSON.stringify(attendance));
+  }, [attendance]);
 
   const handleToggle = (id) => {
     setAttendance((prevAttendance) =>
-      prevAttendance.map((student) =>
-        student.id === id ? { ...student, isPresent: !student.isPresent } : student
-      )
+      prevAttendance.map((student) => {
+        if (student.id === id) {
+          return {
+            ...student,
+            presentDays: student.presentDays + (student.presentDays < student.totalDays ? 1 : 0),
+            totalDays: student.totalDays + 1,
+          };
+        }
+        return student;
+      })
     );
   };
 
@@ -31,31 +43,18 @@ const Student = () => {
           <Grid item xs={12} sm={6} md={4} key={student.id}>
             <Paper elevation={3} sx={{ padding: '10px', textAlign: 'center' }}>
               <Typography variant="h6">{student.name}</Typography>
+              <Typography variant="body2" color="text.secondary">
+                Attendance: {((student.presentDays / student.totalDays) * 100).toFixed(1)}%
+              </Typography>
               <FormControlLabel
                 control={
                   <Switch
-                    checked={student.isPresent}
                     onChange={() => handleToggle(student.id)}
-                    color={student.isPresent ? 'success' : 'error'} // Change color based on attendance
-                    inputProps={{ 'aria-label': 'controlled' }}
+                    color="primary"
                   />
                 }
-                label={student.isPresent ? 'Present' : 'Absent'}
+                label="Mark Present"
                 labelPlacement="top"
-                sx={{
-                  '& .MuiSwitch-thumb': {
-                    backgroundColor: student.isPresent ? 'green' : 'red', // Thumb color
-                  },
-                  '& .Mui-checked .MuiSwitch-thumb': {
-                    backgroundColor: 'green', // Thumb color when checked
-                  },
-                  '& .Mui-checked': {
-                    color: 'green', // Track color when checked
-                  },
-                  '& .MuiSwitch-track': {
-                    backgroundColor: student.isPresent ? 'green' : 'red', // Track color based on attendance
-                  },
-                }}
               />
             </Paper>
           </Grid>

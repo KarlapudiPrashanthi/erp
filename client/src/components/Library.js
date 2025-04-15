@@ -12,21 +12,22 @@ const Library = () => {
       author: 'F. Scott Fitzgerald',
       isbn: '9780743273565',
       year: 1925,
-      cover: 'https://example.com/gatsby.jpg', // Replace with actual image URLs
+      cover: 'https://example.com/gatsby.jpg', 
     },
     {
       title: 'To Kill a Mockingbird',
       author: 'Harper Lee',
       isbn: '9780061120084',
       year: 1960,
-      cover: 'https://example.com/mockingbird.jpg', // Replace with actual image URLs
+      cover: 'https://example.com/mockingbird.jpg', 
     },
     {
       title: '1984',
       author: 'George Orwell',
       isbn: '9780451524935',
       year: 1949,
-      cover: 'https://example.com/1984.jpg', // Replace with actual image URLs
+      cover: 'https://example.com/1984.jpg',  
+      
     },
     {
       title: 'Pride and Prejudice',
